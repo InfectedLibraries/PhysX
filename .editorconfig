@@ -1,0 +1,16 @@
+# This editorconfig is here primarily to prevent another one from being being picked up since PhysX does not have one.
+# We attempt to apply the NVIDIA preferences here. We don't want whitespace changes making it harder to merge things down the line.
+# If your editor ever tries to change or conflict with the formatting of an existing file, this file should be updated rather than changing the file.
+root = true
+
+[*]
+indent_style = tab
+# CMake files in particular tend to have trailing whitespace
+trim_trailing_whitespace = false
+
+[*.{c,cpp,h,hpp}]
+indent_style = tab
+# Unclear if exactly what charset PhysX uses for its files.
+# It's probably utf-8 or latin1, but we leave it unspecified so well-meaning editors don't try to change things.
+# charset = utf-8
+insert_final_newline = true
