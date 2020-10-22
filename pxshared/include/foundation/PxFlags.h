@@ -69,6 +69,8 @@ This allows for type safe manipulation for bitfields.
     }
 */
 
+#define DISABLE_PXFLAGS_COPY_CONSTRUCTOR
+
 template <typename enumtype, typename storagetype = uint32_t>
 class PxFlags
 {
@@ -80,7 +82,9 @@ class PxFlags
 	}
 	PX_CUDA_CALLABLE PX_INLINE PxFlags(void);
 	PX_CUDA_CALLABLE PX_INLINE PxFlags(enumtype e);
+#ifndef DISABLE_PXFLAGS_COPY_CONSTRUCTOR
 	PX_CUDA_CALLABLE PX_INLINE PxFlags(const PxFlags<enumtype, storagetype>& f);
+#endif
 	PX_CUDA_CALLABLE PX_INLINE explicit PxFlags(storagetype b);
 
 	PX_CUDA_CALLABLE PX_INLINE bool isSet(enumtype e) const;
@@ -166,11 +170,13 @@ PX_CUDA_CALLABLE PX_INLINE PxFlags<enumtype, storagetype>::PxFlags(enumtype e)
 	mBits = static_cast<storagetype>(e);
 }
 
+#ifndef DISABLE_PXFLAGS_COPY_CONSTRUCTOR
 template <typename enumtype, typename storagetype>
 PX_CUDA_CALLABLE PX_INLINE PxFlags<enumtype, storagetype>::PxFlags(const PxFlags<enumtype, storagetype>& f)
 {
 	mBits = f.mBits;
 }
+#endif
 
 template <typename enumtype, typename storagetype>
 PX_CUDA_CALLABLE PX_INLINE PxFlags<enumtype, storagetype>::PxFlags(storagetype b)
