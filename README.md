@@ -1,3 +1,7 @@
+# NVIDIA PhysX SDK 4.1 - InfectedPhysX Fork
+
+This fork contains some minor changes to PhysX for [InfectedPhysX](https://github.com/InfectedLibraries/InfectedPhysX).
+
 # NVIDIA PhysX SDK 4.1
 
 Copyright (c) 2019 NVIDIA Corporation. All rights reserved.
