@@ -39,11 +39,12 @@ infected_physx_target_copy(PhysXPvdSDK)
 infected_physx_target_copy(PhysXTask)
 
 # De-dupe the properties
+# Note: INFECTED_PHYSX_COMPILE_DEFINITIONS is not de-duplicated because de-duplicating doesn't play nice with generator expressions.
+# CMake seems to automatically remove duplicates from it anyway so duplicates there won't gum things up.
 list(REMOVE_DUPLICATES INFECTED_PHYSX_SOURCES)
 list(REMOVE_DUPLICATES INFECTED_PHYSX_INTERFACE_SOURCES)
 list(REMOVE_DUPLICATES INFECTED_PHYSX_INCLUDE_DIRECTORIES)
 list(REMOVE_DUPLICATES INFECTED_PHYSX_INTERFACE_INCLUDE_DIRECTORIES)
-list(REMOVE_DUPLICATES INFECTED_PHYSX_COMPILE_DEFINITIONS)
 list(REMOVE_DUPLICATES INFECTED_PHYSX_INTERFACE_COMPILE_DEFINITIONS)
 
 # Remove resource files
@@ -68,10 +69,6 @@ set_target_properties(InfectedPhysX.Native PROPERTIES
     COMPILE_DEFINITIONS "${INFECTED_PHYSX_COMPILE_DEFINITIONS}"
     INTERFACE_COMPILE_DEFINITIONS "${INFECTED_PHYSX_INTERFACE_COMPILE_DEFINITIONS}"
 )
-
-# Pretty sure this should not be necessary, but this is needed for PVD support in checked builds
-# Possibly related to https://github.com/InfectedLibraries/PhysX/issues/1
-add_compile_definitions(InfectedPhysX.Native PX_SUPPORT_PVD=1)
 
 # InfectedPhysX.cpp must be built with /Ob0 /Od as a workaround for https://github.com/InfectedLibraries/Biohazrd/issues/78
 set_source_files_properties("${PHYSX_ROOT_DIR}/../../../InfectedPhysX/#Generated/InfectedPhysX.cpp" PROPERTIES COMPILE_FLAGS "/Ob0 /Od")
