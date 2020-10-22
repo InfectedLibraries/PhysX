@@ -190,6 +190,12 @@ ELSE()
 		SET(PHYSXDISTRO_LIBS PhysXFoundation PhysX PhysXCharacterKinematic PhysXPvdSDK PhysXCommon PhysXCooking PhysXExtensions PhysXVehicle PhysXTask)
 	ENDIF()	
 	
+	IF(PX_ENABLE_INFECTED_PHYSX)
+		INCLUDE(InfectedPhysX.Native.cmake)
+		SET_PROPERTY(TARGET InfectedPhysX.Native PROPERTY FOLDER "PhysX SDK")
+		SET(PHYSXDISTRO_LIBS ${PHYSXDISTRO_LIBS} InfectedPhysX.Native)
+	ENDIF()
+	
 	INSTALL(
 		TARGETS ${PHYSXDISTRO_LIBS}
 		EXPORT PhysXSDK
