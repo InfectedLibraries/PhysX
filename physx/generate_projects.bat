@@ -1,6 +1,6 @@
+@echo off
 :: Reset errorlevel status so we are not inheriting this state from the calling process:
 @call :CLEAN_EXIT
-@echo off
 
 pushd %~dp0
 set PHYSX_ROOT_DIR=%CD%
