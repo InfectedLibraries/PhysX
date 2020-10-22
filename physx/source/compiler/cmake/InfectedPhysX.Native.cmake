@@ -70,5 +70,11 @@ set_target_properties(InfectedPhysX.Native PROPERTIES
     INTERFACE_COMPILE_DEFINITIONS "${INFECTED_PHYSX_INTERFACE_COMPILE_DEFINITIONS}"
 )
 
+# Copy the PDB to the install directory
+install(FILES $<TARGET_PDB_FILE:InfectedPhysX.Native>
+	DESTINATION $<$<CONFIG:debug>:${PX_ROOT_LIB_DIR}/debug>$<$<CONFIG:release>:${PX_ROOT_LIB_DIR}/release>$<$<CONFIG:checked>:${PX_ROOT_LIB_DIR}/checked>$<$<CONFIG:profile>:${PX_ROOT_LIB_DIR}/profile>
+	OPTIONAL
+)
+
 # InfectedPhysX.cpp must be built with /Ob0 /Od as a workaround for https://github.com/InfectedLibraries/Biohazrd/issues/78
 set_source_files_properties("${PHYSX_ROOT_DIR}/../../../InfectedPhysX/#Generated/InfectedPhysX.cpp" PROPERTIES COMPILE_FLAGS "/Ob0 /Od")
